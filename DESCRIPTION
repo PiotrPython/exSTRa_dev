@@ -1,0 +1,28 @@
+Package: exSTRa
+Type: Package
+Title: Expanded STR algorithm: detecting expansions in Illumina sequencing data
+Version: 0.7
+Date: 2017-05-16
+Author: Rick Tankard
+Maintainer: Rick Tankard <tankard@wehi.edu.au>
+Description: More about what it does (maybe more than one line)
+License: GPL-2
+Imports: testit, data.table, xlsx, stringr, reshape2
+Suggests: testthat
+RoxygenNote: 6.0.1
+Collate: 
+    'CLASS_exstra_db.R'
+    'CLASS_exstra_score.R'
+    'filter_low_scores.R'
+    'read_score.R'
+    'read_exstra_db_ucsc.R'
+    'read_exstra_db_xlsx.R'
+    'read_exstra_db.R'
+    'DATA.R'
+    'GENERICS.R'
+    'TRASH.R'
+    'add_alpha_.R'
+    'filter_sex.R'
+    'loci_normal_expansion.R'
+    'rbind_score_list.R'
+    'suggested_exstra_pipeline.R'
