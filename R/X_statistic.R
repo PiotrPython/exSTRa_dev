@@ -23,16 +23,6 @@ df_real <- df_real_f(df,str_score)
 # T test added to data frame
 str_score_real <- T_test(df_real,str_score)
                     
-# Reads in each quantile (simulate)
-df_simulate <- df_simulate_f(df_real)
-
-# T test added to data frame (simulate)
-str_score_simulate <- T_test(df_simulate,str_score) 
-
-### Deriving P value via simulation
-
-
-# Calculate P value
 
 #P_value <- data.frame(locus=character(),sample=character(),quantile=character(),rep=numeric(),stringsAsFactors = FALSE)
 #I=seq(1,levels(factor(str_score$data$locus)))
@@ -64,7 +54,7 @@ for (b in seq(1,B)){
   }
 }
 
-# Move p value from df_p into str_score_p
+# Move p value from df_p into str_score_p and sum over sample runs.
 for (loci in levels(factor(str_score_real$data$locus))){
   for (person in levels(factor(str_score_real$data$sample))){
     a <- (sum(df_p %>% filter(locus ==loci & sample == person) %>% select(pvalue))+1)/(B+1)
@@ -73,9 +63,10 @@ for (loci in levels(factor(str_score_real$data$locus))){
 }
 
 
-    df_p %>% group_by(locus, sample) %>% summarise(pvalue)
+df_p %>% group_by(locus, sample) %>% summarise(pvaluesum = (sum(pvalue)+1)/(B+1))
 # Quick check for indicator function
 
+str_score_p$data %>% group_by(locus sample) %>% summarise(mean_p = mean(pvalue)) filter(sample == "WGSrpt_10") 
 
 
 

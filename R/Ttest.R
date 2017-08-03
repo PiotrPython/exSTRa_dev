@@ -192,7 +192,7 @@ df_simulate_vector <- function(df){
   df_simulate
 }
 
-df_simulate_vector(df_mean,levels(factor(df_breed$sample)))
+#df_simulate_vector(df_mean,levels(factor(df_breed$sample)))
 
 
  
