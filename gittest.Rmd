@@ -10,20 +10,67 @@ a <- 1:4
 
 ##Vignette exSTRa - extending the search.
 
-Along with the standard search for the known loci that are in [insert file name] it is possible to extend the search to other loci. With exSTRa this is very easy to do changing file [insert file name] to [new file name] extends the search to all the loci in [new file name]. 
+After running exSTRa across the standard search -for the known loci which are specified in  ["/inst/exdata"](https://github.com/PiotrPython/exSTRa_dev//inst/exdata/repeat_expansion_disorders.txt) you might want to extend the search to other loci. The standard version run the loci which are specified [repeat_expansion_disorders.txt]().  
 
+With exSTRa this is very easy to do all that is needed is to change two files one is perl code the other R code. The general idea is the same for both the perl code and the R code, all that changes is the file [repeat_expansion_disorders.txt](). We need to change it too [repeat_expansion_disorders_bigger.txt]().
+
+#What to change.
+
+Snippet to change [perlcode](https://github.com/bahlolab/Bio-STR-exSTRa/tree/master/examples/run_strexpansion_score.sh) change line marked #<<<<<<<
+```{r echo=True, results=FALSE, fig.cap="\\label{fig:figs} wha who"}
+# Running exSTRa
+
+### Configuration
+
+# Set bam_glob to a glob pattern that includes all bam files you wish to analyse.
+# (multiple runs may be combined in R exSTRa later)
+# You may separate globs by spaces or give full paths within the quotes.
+# (For more complex cases, set in the perl command directly)
+bam_glob="path/to/bams/*.bam"
+
+# Output tab delimited file path:
+output=output/exSTRa_scores.txt
+
+# As provided from the R exSTRa package (https://github.com/bahlolab/exSTRa).
+# Check that the reference matches your BAM files.
+
+repeat_database=path/to/repeat_expansion_disorders_bigger.txt # <<<< change this file
+
+```
+
+Snippet to change in [Rcode](https://github.com/bahlolab/exSTRa/blob/master/examples/exSTRa_score_analysis.R) change line marked #<<<<<<<
+```{r echo=True, results=FALSE}
+# An example of exSTRa usage, for known STR expansion disorder loci
+
+## ---- strexpansion_prepare
+# best to load data.table before exSTRa if manipulation with data.table commands is required
+library(data.table)
+library(exSTRa)
+
+knitr::opts_chunk$set(fig.width=11, fig.height=11)
+
+# Read score data and file with loci information
+str_score <- read_score (
+  #file = system.file("extdata", "HiSeqXTen_WGS_PCR_2.txt", package = "exSTRa"),             # <<<<< comment out the old perl output file
+  file  = "path/to/new_perl_output.txt"                                                      # <<<<< comment out the old perl output file
+  #database = system.file("extdata", "repeat_expansion_disorders.txt", package = "exSTRa"),  # <<<<< comment out the old database
+  database  = "path/to/repeat_expansion_disorder_bigger.txt"                                 # <<<<< add this
+  groups.regex = c(control = "^WGSrpt_0[24]$", case = ""), # the group is the first regular expression (regex) to match
+  filter.low.counts = TRUE
+)
+
+```
+
+
+Done.
+
+# Optional/helpful script
 [Additional script] is a useful script that formats output from other functions which filter down to interesting candidate loci. For example [insert file name 2] was produced by filtering down to loci [confirm with make this makes sense] that appear to have a function in human brain tissue.
 
-Excel is really fun [false excel is stupid](./inst/exdatarepeat_expansion_disorders.txt)
+Excel is really fun [false excel is stupid](https://github.com/PiotrPython/exSTRa_dev//inst/exdatarepeat_expansion_disorders.txt)
 
 
 
-## Viridis colors
-
-```{r}
-loci_file <- read.csv("inst/exdatarepeat_expansion_disorders.txt") 
-print(loci_file)
-```
 
 
 
