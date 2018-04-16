@@ -1,0 +1,29 @@
+---
+  title: "exSTRa"
+output: html_document
+---
+  
+  ```{r include = FALSE}
+library(viridis)
+a <- 1:4
+```
+
+##Vignette exSTRa - extending the search.
+
+Along with the standard search for the known loci that are in [insert file name] it is possible to extend the search to other loci. With exSTRa this is very easy to do changing file [insert file name] to [new file name] extends the search to all the loci in [new file name]. 
+
+[Additional script] is a useful script that formats output from other functions which filter down to interesting candidate loci. For example [insert file name 2] was produced by filtering down to loci [confirm with make this makes sense] that appear to have a function in human brain tissue.
+
+Excel is really fun [false excel is stupid]("inst/exdatarepeat_expansion_disorders.txt")
+
+
+
+## Viridis colors
+
+```{r}
+loci_file <- read.csv("inst/exdatarepeat_expansion_disorders.txt") 
+print(loci_file)
+```
+
+
+
