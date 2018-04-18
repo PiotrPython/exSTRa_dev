@@ -1,0 +1,6 @@
+```{r echo=True, results=TRUE, fig.cap="\\label{fig:figs} wha who"}
+# Running exSTRa
+
+a<-read.csv("https://github.com/PiotrPython/exSTRa_dev/blob/master/Documentation/loci_custom.csv",header=TRUE)
+head(a)
+```
